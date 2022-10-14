@@ -5,7 +5,6 @@ import discord
 from discord.ext import commands
 
 
-COMMANDS_DIR = 'commands'
 MY_GUILD = discord.Object(id=os.environ['GUILD_ID'])
 TOKEN = os.environ['DISCORD_TOKEN']
 
@@ -25,10 +24,9 @@ async def on_ready():
     print('------')
 
 async def main():
-    commandfiles = filter(lambda file: file.endswith('.py'), os.listdir(f'./{COMMANDS_DIR}'))
-    for file in commandfiles:
-        extension = COMMANDS_DIR + '.' + file.removesuffix('.py')
-        await bot.load_extension(extension)
+    commands = [file[:-3] for file in os.listdir(f'./commands') if file.endswith('.py')]
+    for command in commands:
+        await bot.load_extension('commands.' + command)
     
     async with bot:
         await bot.start(TOKEN)
