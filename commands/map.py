@@ -14,6 +14,7 @@ class MapSelectMenu(discord.ui.View):
         pickedmap = random.choice([m for m in self.maps if m not in select.values])
         embed = discord.Embed(title=pickedmap, colour=discord.Colour.red())
         embed.set_image(url=f'attachment://{pickedmap}.png')
+        embed.set_footer(text='BAN: ' + (' '.join(select.values) or 'なし'))
         attachment = discord.File(f'./images/maps/VALORANT/{pickedmap}.png', filename=f'{pickedmap}.png')
         await interaction.response.edit_message(embed=embed, attachments=[attachment], view=None)
 
