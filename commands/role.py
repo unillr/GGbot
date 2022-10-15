@@ -5,9 +5,9 @@ from discord import app_commands
 from discord.ext import commands
 
 
-@commands.hybrid_command()
+@commands.hybrid_command(name='role')
 @app_commands.describe(role='付けたい/外したいロール')
-async def role(ctx, role: Optional[discord.Role]):
+async def add_or_remove_role(ctx, role: Optional[discord.Role]):
     '''自分のロールの追加/削除'''
     if role is None:
         category = {"PC": 0xff0000, "Mobile": 0x00ff00, "Console": 0x0000ff, "Others": 0xffffff}
@@ -27,4 +27,4 @@ async def role(ctx, role: Optional[discord.Role]):
 
 
 async def setup(bot):
-    bot.add_command(role)
+    bot.add_command(add_or_remove_role)
