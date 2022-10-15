@@ -27,11 +27,11 @@ class MapSelectMenuView(discord.ui.View):
         self.add_item(MapSelectMenu(game))
 
 
-@commands.hybrid_command()
-async def map(ctx):
+@commands.hybrid_command(name='map')
+async def random_map(ctx):
     '''VALORANTのマップをランダムに選択'''
     await ctx.send(view=MapSelectMenuView('VALORANT'))
 
 
 async def setup(bot):
-    bot.add_command(map)
+    bot.add_command(random_map)
