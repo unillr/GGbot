@@ -27,7 +27,7 @@ async def on_ready():
 
 async def main():
     extensions = [e[:-3] for e in os.listdir('./commands') if e.endswith('.py')]
-    if os.getenv('prouction') is None:
+    if os.getenv('production') is None:
         extensions += ['dev.' + e[:-3] for e in os.listdir('./commands/dev') if e.endswith('.py')]
     for extension in extensions:
         await bot.load_extension('commands.' + extension)
