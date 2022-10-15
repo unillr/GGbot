@@ -4,7 +4,9 @@ from discord import app_commands
 from discord.ext import commands
 
 
-extensions = [e[:-3] for e in os.listdir(f'./commands') if e.endswith('.py')]
+extensions = [e[:-3] for e in os.listdir('./commands') if e.endswith('.py')]
+if os.getenv('production') is None:
+    extensions +=['dev.' + e[:-3] for e in os.listdir('./commands/dev') if e.endswith('.py')]
 
 
 @commands.hybrid_command(name='reload')

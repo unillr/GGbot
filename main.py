@@ -1,4 +1,5 @@
 import asyncio
+from distutils import extension
 import os
 
 import discord
@@ -25,7 +26,9 @@ async def on_ready():
     print('------')
 
 async def main():
-    extensions = [e[:-3] for e in os.listdir(f'./commands') if e.endswith('.py')]
+    extensions = [e[:-3] for e in os.listdir('./commands') if e.endswith('.py')]
+    if os.getenv('prouction') is None:
+        extensions += ['dev.' + e[:-3] for e in os.listdir('./commands/dev') if e.endswith('.py')]
     for extension in extensions:
         await bot.load_extension('commands.' + extension)
     
