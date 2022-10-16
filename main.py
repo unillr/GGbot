@@ -1,5 +1,4 @@
 import asyncio
-from distutils import extension
 import os
 
 import discord
