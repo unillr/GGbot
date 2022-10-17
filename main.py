@@ -19,10 +19,12 @@ class MyBot(commands.Bot):
 intents = discord.Intents.all()
 bot = MyBot(command_prefix=commands.when_mentioned_or('/'), intents=intents)
 
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
     print('------')
+
 
 async def main():
     extensions = [e[:-3] for e in os.listdir('./commands') if e.endswith('.py')]
@@ -30,7 +32,7 @@ async def main():
         extensions += ['dev.' + e[:-3] for e in os.listdir('./commands/dev') if e.endswith('.py')]
     for extension in extensions:
         await bot.load_extension('commands.' + extension)
-    
+
     async with bot:
         await bot.start(TOKEN)
 

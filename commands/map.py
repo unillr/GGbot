@@ -9,7 +9,7 @@ class GameSelectButton(discord.ui.Button):
     def __init__(self, game):
         self.game = game
         super().__init__(label=self.game, style=discord.ButtonStyle.primary)
-    
+
     async def callback(self, interaction: discord.Interaction):
         await interaction.response.edit_message(view=MapSelectMenuView(self.game))
 
@@ -17,12 +17,15 @@ class GameSelectButton(discord.ui.Button):
 class MapSelectMenu(discord.ui.Select):
     def __init__(self, game):
         self.game = game
-        with open(f'./images/maps/map.json', 'r', encoding='utf-8') as f:
+        with open('./images/maps/map.json', 'r', encoding='utf-8') as f:
             self.maps = json.load(f)[self.game]
         options = [discord.SelectOption(label=m) for m in self.maps.keys()]
-        super().__init__(placeholder='除外するマップを選択…', min_values=0, max_values=len(options) - 1, options=options)
+        super().__init__(placeholder='除外するマップを選択…',
+                         min_values=0,
+                         max_values=len(options) - 1,
+                         options=options)
 
-    async def callback(self, interaction: discord.Integration):
+    async def callback(self, interaction: discord.Interaction):
         map_candicates = [m for m in self.maps.keys() if m not in self.values]
         map_name = random.choice(map_candicates)
         map_image = self.maps[map_name]

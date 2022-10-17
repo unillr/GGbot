@@ -17,7 +17,7 @@ async def add_or_remove_role(ctx, role: Optional[discord.Role]):
             embed.add_field(name=platform, value='\n'.join(categorized_roles))
         await ctx.send(embed=embed, ephemeral=True)
         return
-    
+
     if ctx.author.get_role(role.id) is None:
         await ctx.author.add_roles(role)
         await ctx.send(f'{ctx.author.display_name}が{role}の仲間になったよ!')

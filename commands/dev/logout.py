@@ -8,5 +8,6 @@ async def logout(ctx):
     await ctx.send('Goodbye!', ephemeral=True)
     await ctx.bot.close()
 
+
 async def setup(bot):
     bot.add_command(logout)
