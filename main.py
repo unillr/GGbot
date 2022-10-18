@@ -5,7 +5,6 @@ from typing import Final
 import discord
 from discord.ext import commands
 
-
 MY_GUILD: Final = discord.Object(id=os.environ['GUILD_ID'])
 TOKEN: Final = os.environ['DISCORD_TOKEN']
 
@@ -31,10 +30,14 @@ async def main() -> None:
     extensions: list[str] = [e[:-3] for e in os.listdir('./commands') if e.endswith('.py')]
     if os.getenv('production') is None:
         extensions += ['dev.' + e[:-3] for e in os.listdir('./commands/dev') if e.endswith('.py')]
-    for extension in extensions:
-        await bot.load_extension('commands.' + extension)
 
     async with bot:
+        for extension in extensions:
+            await bot.load_extension('commands.' + extension)
+        discord.utils.setup_logging(root=False)
         await bot.start(TOKEN)
 
-asyncio.run(main())
+try:
+    asyncio.run(main())
+except KeyboardInterrupt:
+    pass
