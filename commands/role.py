@@ -6,7 +6,7 @@ from discord.ext import commands
 
 
 @commands.hybrid_command(name='role')
-@commands.guild_only()
+@commands.bot_has_guild_permissions(manage_roles=True)
 @app_commands.describe(role='付けたい/外したいロール')
 async def add_or_remove_role(ctx: commands.Context[commands.Bot],
                              role: discord.Role | None) -> None:
