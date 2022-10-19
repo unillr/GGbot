@@ -2,6 +2,7 @@ import json
 import random
 
 import discord
+from discord import app_commands
 from discord.ext import commands
 
 
@@ -50,11 +51,11 @@ class MapSelectMenuView(discord.ui.View):
         self.add_item(MapSelectMenu(selected_game))
 
 
-@commands.hybrid_command(name='map')
-async def random_map(ctx: commands.Context[commands.Bot]) -> None:
+@app_commands.command(name='map')
+async def random_map(interaction: discord.Interaction) -> None:
     '''マップをランダムに選択'''
-    await ctx.send(view=MapSelectMenuView())
+    await interaction.response.send_message(view=MapSelectMenuView())
 
 
 async def setup(bot: commands.Bot) -> None:
-    bot.add_command(random_map)
+    bot.tree.add_command(random_map)
