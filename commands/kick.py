@@ -4,6 +4,8 @@ from discord.ext import commands
 
 
 @app_commands.context_menu(name='VCから切断')
+@app_commands.checks.has_role('寝落ちしないマン')
+@app_commands.checks.bot_has_permissions(move_members=True)
 async def kick_from_voice_channel(interaction: discord.Interaction,
                                   member: discord.Member) -> None:
     await member.move_to(None)
