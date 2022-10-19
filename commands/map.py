@@ -44,7 +44,7 @@ class MapSelectMenu(discord.ui.Select[discord.ui.View]):
 class MapSelectMenuView(discord.ui.View):
     def __init__(self, selected_game: str = 'VALORANT') -> None:
         super().__init__()
-        with open('./images/maps/map.json', 'r', encoding='utf-8') as f:
+        with open('./images/maps/maps.json', 'r', encoding='utf-8') as f:
             games: list[str] = json.load(f).keys()
         for game in games:
             self.add_item(GameSelectButton(game))
