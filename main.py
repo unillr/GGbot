@@ -17,7 +17,7 @@ class MyBot(commands.Bot):
 
 
 intents: discord.Intents = discord.Intents.all()
-bot: commands.Bot = MyBot(command_prefix=commands.when_mentioned_or('/'), intents=intents)
+bot: MyBot = MyBot(command_prefix=commands.when_mentioned_or('/'), intents=intents)
 
 
 @bot.event
