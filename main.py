@@ -50,13 +50,13 @@ async def run_bot(_app):
         await task
 
 
-async def hello(request):
-    return web.Response(text="Hello, world")
+async def index(request):
+    return web.Response(text="GGbot")
 
 
-async def init_func(argv):
+async def init_func():
     app = web.Application()
-    app.add_routes([web.get('/', hello)])
+    app.router.add_get('/', index)
     app.cleanup_ctx.append(run_bot)
 
     return app
