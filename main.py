@@ -1,7 +1,9 @@
 import asyncio
+from contextlib import suppress
 import os
 from typing import Final
 
+from aiohttp import web
 import discord
 from discord.ext import commands
 
@@ -37,7 +39,24 @@ async def main() -> None:
         discord.utils.setup_logging(root=False)
         await bot.start(TOKEN)
 
-try:
-    asyncio.run(main())
-except KeyboardInterrupt:
-    pass
+
+async def run_bot(_app):
+    task = asyncio.create_task(main())
+
+    yield
+
+    task.cancel()
+    with suppress(asyncio.CancelledError):
+        await task
+
+
+async def hello(request):
+    return web.Response(text="Hello, world")
+
+
+async def init_func(argv):
+    app = web.Application()
+    app.add_routes([web.get('/', hello)])
+    app.cleanup_ctx.append(run_bot)
+
+    return app
